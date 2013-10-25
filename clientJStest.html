@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<script src="jQuery/jquery-1.10.2.min.js"></script>
+		<script>
+			$(document).ready(
+				function () {
+					var worldweatherapi = "http://api.worldweatheronline.com/free/v1/weather.ashx?callback=?";
+					$.ajax(
+							{
+							dataType:"json",
+							url: worldweatherapi,
+							data : {
+								format:"json",
+								key:"sattd4uyxvb8h223w2hgrwhw",
+								num_of_days:"3",
+								q:"viana+do+castelo"
+							},
+							success: function (data) {
+								alert(data.data.request[0].query);
+							}
+							}
+					);
+				}
+			);
+		</script>
+	</head>
+	<body>
+		<div id="result">
+			
+		</div>
+	</body>
+</html>

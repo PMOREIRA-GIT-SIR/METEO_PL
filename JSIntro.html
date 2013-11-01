@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<style>
+			p {color:lime;}
+		</style>
+		<script>
+			var img = 0;
+			var imgurl = new Array();
+			imgurl[0] =  "http://localhost/SIR1213/PROJECT_METEO_PL/images/kitty1.jpg"
+			imgurl[1] =  "http://localhost/SIR1213/PROJECT_METEO_PL/images/kitty2.jpg"
+			 
+			function init() {
+				//document.images["kitty"].src = imgurl[img];
+				//debugger;
+				document.getElementById("kitty1").src = imgurl[img];
+				document.getElementById("kitty2").src = imgurl[(img+1)%imgurl.length];
+				document.getElementById("swap").onclick = swap;
+			}
+			
+			function swap() {
+				//alert(document.body.children[0]);
+				var images = document.getElementsByTagName("img");
+				images[1].src = imgurl[img];
+				if (img == 1) img = 0; else img = 1;
+				images[0].src = imgurl[img];
+				var newp = document.createElement("p");
+				//alert(newp);
+				newp.innerHTML = "oooo";
+				newp.style.color = "red";
+				document.body.appendChild(newp);
+				
+			}
+			
+		</script>
+	</head>
+	<body onload="init();">
+		<p>olá</p>
+		<img 	id="kitty1" src="images/kitty1.jpg">
+		<img 	id="kitty2" src="images/kitty2.jpg">
+		
+		<input  id="swap"  type="button" value="swap"/>
+	</body>
+</html>

@@ -2,6 +2,54 @@
 	<head>
 		<script src="jQuery/jquery-1.10.2.min.js"></script>
 		<script>
+		
+		$(document).ready( function () {
+			$("#getbutton").click(getWeather);
+		});
+		
+
+		    function getWeather() {
+		    		var loc = $("#location").val();
+		    		$.getJSON(
+		    			"http://api.worldweatheronline.com/free/v1/weather.ashx?callback=?",
+		    			{
+		    				q:loc,
+		    				format:"json",
+		    				num_of_days : 3,
+		    				key:"sattd4uyxvb8h223w2hgrwhw"
+		    			},
+		    			function (dataobj) {
+		    				container = $("<div/>");
+		    				heading = $("<h3/>");
+		    				heading.html(dataobj.data.request[0].query);
+		    				container.append(heading);
+		    				
+		    				for(var i=0; i < dataobj.data.weather.length; i++) {
+		    					//debugger;
+		    					var wlist = $("<ul/>");
+		    					wlist.css("border-style","solid");
+		    					wlist.css("border-color","black");
+		    					wlist.css("border-width","1px");
+		    					wlist.css("width","300px");
+		    					var day  = dataobj.data.weather[i].date;
+		    					var tmin = dataobj.data.weather[i].tempMinC;
+		    					var tmax = dataobj.data.weather[i].tempMaxC;
+		    					//precMM = dataobj.data.weather[i].precipMM;
+		    					var dayli  = $("<li/>"); dayli.html("dia"+day);
+		    					var tminli = $("<li/>"); tminli.html("temperatura minima"+tmin);
+		    					var tmaxli = $("<li/>"); tmaxli.html("temperatura máxima"+tmax);
+		    					wlist.append(day);
+		    					wlist.append(tminli);
+		    					wlist.append(tmaxli);
+		    					wlist.append($("<li/>").html("pluviosidade"+dataobj.data.weather[i].precipMM));
+		    					container.append(wlist);
+		    				}
+		    				
+		    				$("#result").append(container);
+		    			});
+		    		}
+
+/*    
 			$(document).ready(
 				function () {
 					var worldweatherapi = "http://api.worldweatheronline.com/free/v1/weather.ashx?callback=?";
@@ -22,9 +70,12 @@
 					);
 				}
 			);
+*/
 		</script>
 	</head>
 	<body>
+		<input type="text" id="location"/>
+		<input type="button" id="getbutton" value="get weather forecast"/>
 		<div id="result">
 			
 		</div>
